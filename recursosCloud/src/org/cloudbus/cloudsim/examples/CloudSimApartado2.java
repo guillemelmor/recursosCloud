@@ -56,42 +56,11 @@ public class CloudSimApartado2 {
 			int numCPUsCloudlet = 1;
 			
 			// constructor cloudlet
-			cloudlet = new Cloudlet (0, 10000, numCPUsCloudlet, 2000000, 2500000, utilizationModel, utilizationModel, utilizationModel);
-			cloudlet.setUserId (uid);
-			listaCloudlets.add(cloudlet);
-			cloudlet = new Cloudlet (1, 10000, numCPUsCloudlet, 2000000, 2500000, utilizationModel, utilizationModel, utilizationModel);
-			cloudlet.setUserId (uid);
-			listaCloudlets.add(cloudlet);
-			cloudlet = new Cloudlet (2, 10000, numCPUsCloudlet, 2000000, 2500000, utilizationModel, utilizationModel, utilizationModel);
-			cloudlet.setUserId (uid);
-			listaCloudlets.add(cloudlet);
-			cloudlet = new Cloudlet (3, 10000, numCPUsCloudlet, 2000000, 2500000, utilizationModel, utilizationModel, utilizationModel);
-			cloudlet.setUserId (uid);
-			listaCloudlets.add(cloudlet);
-			cloudlet = new Cloudlet (4, 10000, numCPUsCloudlet, 2000000, 2500000, utilizationModel, utilizationModel, utilizationModel);
-			cloudlet.setUserId (uid);
-			listaCloudlets.add(cloudlet);
-			cloudlet = new Cloudlet (5, 10000, numCPUsCloudlet, 2000000, 2500000, utilizationModel, utilizationModel, utilizationModel);
-			cloudlet.setUserId (uid);
-			listaCloudlets.add(cloudlet);
-			cloudlet = new Cloudlet (6, 10000, numCPUsCloudlet, 2000000, 2500000, utilizationModel, utilizationModel, utilizationModel);
-			cloudlet.setUserId (uid);
-			listaCloudlets.add(cloudlet);
-			cloudlet = new Cloudlet (7, 10000, numCPUsCloudlet, 2000000, 2500000, utilizationModel, utilizationModel, utilizationModel);
-			cloudlet.setUserId (uid);
-			listaCloudlets.add(cloudlet);
-			cloudlet = new Cloudlet (8, 10000, numCPUsCloudlet, 2000000, 2500000, utilizationModel, utilizationModel, utilizationModel);
-			cloudlet.setUserId (uid);
-			listaCloudlets.add(cloudlet);
-			cloudlet = new Cloudlet (9, 10000, numCPUsCloudlet, 2000000, 2500000, utilizationModel, utilizationModel, utilizationModel);
-			cloudlet.setUserId (uid);
-			listaCloudlets.add(cloudlet);
-			cloudlet = new Cloudlet (10, 10000, numCPUsCloudlet, 2000000, 2500000, utilizationModel, utilizationModel, utilizationModel);
-			cloudlet.setUserId (uid);
-			listaCloudlets.add(cloudlet);
-			cloudlet = new Cloudlet (11, 10000, numCPUsCloudlet, 2000000, 2500000, utilizationModel, utilizationModel, utilizationModel);
-			cloudlet.setUserId (uid);
-			listaCloudlets.add(cloudlet);
+			for (int i = 0; i < 12; i++){
+				cloudlet = new Cloudlet (i, 10000, numCPUsCloudlet, 2000000, 2500000, utilizationModel, utilizationModel, utilizationModel);
+				cloudlet.setUserId (uid);
+				listaCloudlets.add(cloudlet);
+			}
 			
 			// -------------------------------------------------------------------------
 			
@@ -108,6 +77,10 @@ public class CloudSimApartado2 {
 			String vmm = "Xen";
 			
 			// constructor maquina virtual
+			//vm = new Vm (0, uid, mips, numCPUsVm, ram, anchoBanda, almacenamiento, vmm, new CloudletSchedulerSpaceShared ());
+			//listaVMs.add(vm);
+			//vm = new Vm (1, uid, mips, numCPUsVm, ram, anchoBanda, almacenamiento, vmm, new CloudletSchedulerSpaceShared ());
+			//listaVMs.add(vm);
 			vm = new Vm (0, uid, mips, numCPUsVm, ram, anchoBanda, almacenamiento, vmm, new CloudletSchedulerTimeShared ());
 			listaVMs.add(vm);
 			vm = new Vm (1, uid, mips, numCPUsVm, ram, anchoBanda, almacenamiento, vmm, new CloudletSchedulerTimeShared ());
@@ -161,8 +134,8 @@ public class CloudSimApartado2 {
 		long almacenamiento = 20000; //MB
 		
 		// constructor host
-		//host = new Host (0, new RamProvisionerSimple (ram), new BwProvisionerSimple (anchoBanda), almacenamiento, listaCPUs, new VmSchedulerTimeShared (listaCPUs));
-		host = new Host (0, new RamProvisionerSimple (ram), new BwProvisionerSimple (anchoBanda), almacenamiento, listaCPUs, new VmSchedulerSpaceShared (listaCPUs));
+		host = new Host (0, new RamProvisionerSimple (ram), new BwProvisionerSimple (anchoBanda), almacenamiento, listaCPUs, new VmSchedulerTimeShared (listaCPUs));
+		//host = new Host (0, new RamProvisionerSimple (ram), new BwProvisionerSimple (anchoBanda), almacenamiento, listaCPUs, new VmSchedulerSpaceShared (listaCPUs));
 		listaHosts.add(host);		
 		
 		// ---------------------------------------------------------------------------------
