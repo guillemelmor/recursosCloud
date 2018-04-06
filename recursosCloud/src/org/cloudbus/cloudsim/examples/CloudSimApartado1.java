@@ -19,13 +19,14 @@ import org.cloudbus.cloudsim.UtilizationModel;
 import org.cloudbus.cloudsim.UtilizationModelFull;
 import org.cloudbus.cloudsim.Vm;
 import org.cloudbus.cloudsim.VmAllocationPolicySimple;
+import org.cloudbus.cloudsim.VmSchedulerSpaceShared;
 import org.cloudbus.cloudsim.VmSchedulerTimeShared;
 import org.cloudbus.cloudsim.core.CloudSim;
 import org.cloudbus.cloudsim.provisioners.BwProvisionerSimple;
 import org.cloudbus.cloudsim.provisioners.PeProvisionerSimple;
 import org.cloudbus.cloudsim.provisioners.RamProvisionerSimple;
 
-public class CloudSimEjercicio1 {
+public class CloudSimApartado1 {
 	private static List<Vm> vmlist;
 	private static List<Cloudlet> cloudletList;
 	
@@ -63,6 +64,9 @@ public class CloudSimEjercicio1 {
 			cloudlet = new Cloudlet (2, 70000, numCPUsCloudlet, 3000000, 4000000, utilizationModel, utilizationModel, utilizationModel);
 			cloudlet.setUserId (uid);
 			listaCloudlets.add(cloudlet);
+			cloudlet = new Cloudlet (3, 100000, numCPUsCloudlet, 3000000, 4000000, utilizationModel, utilizationModel, utilizationModel);
+			cloudlet.setUserId (uid);
+			listaCloudlets.add(cloudlet);
 			
 			// -------------------------------------------------------------------------
 			
@@ -75,11 +79,17 @@ public class CloudSimEjercicio1 {
 			int numCPUsVm = 1;
 			int ram = 1024;
 			long anchoBanda = 100;
-			long almacenamiento = 8000;
+			long almacenamiento = 4000;
 			String vmm = "Xen";
 			
 			// constructor maquina virtual
 			vm = new Vm (0, uid, mips, numCPUsVm, ram, anchoBanda, almacenamiento, vmm, new CloudletSchedulerTimeShared ());
+			listaVMs.add(vm);
+			vm = new Vm (1, uid, mips, numCPUsVm, ram, anchoBanda, almacenamiento, vmm, new CloudletSchedulerTimeShared ());
+			listaVMs.add(vm);
+			vm = new Vm (2, uid, mips, numCPUsVm, ram, anchoBanda, almacenamiento, vmm, new CloudletSchedulerTimeShared ());
+			listaVMs.add(vm);
+			vm = new Vm (3, uid, mips, numCPUsVm, ram, anchoBanda, almacenamiento, vmm, new CloudletSchedulerTimeShared ());
 			listaVMs.add(vm);
 		
 			// --------------------------------------------------------------------------
@@ -123,17 +133,14 @@ public class CloudSimEjercicio1 {
 		List<Host> listaHosts = new ArrayList<Host> ();
 		
 		// características del host
-		int ram = 2048; //MB
+		int ram = 4096; //MB
 		long anchoBanda = 1000; // MBps
-		long almacenamiento = 400000; //MB
+		long almacenamiento = 20000; //MB
 		
 		// constructor host
-		host = new Host (0, new RamProvisionerSimple (ram), new BwProvisionerSimple (anchoBanda), almacenamiento, listaCPUs, new VmSchedulerTimeShared (listaCPUs));
+		//host = new Host (0, new RamProvisionerSimple (ram), new BwProvisionerSimple (anchoBanda), almacenamiento, listaCPUs, new VmSchedulerTimeShared (listaCPUs));
+		host = new Host (0, new RamProvisionerSimple (ram), new BwProvisionerSimple (anchoBanda), almacenamiento, listaCPUs, new VmSchedulerSpaceShared (listaCPUs));
 		listaHosts.add(host);		
-		host = new Host (1, new RamProvisionerSimple (ram), new BwProvisionerSimple (anchoBanda), almacenamiento, listaCPUs, new VmSchedulerTimeShared (listaCPUs));
-		listaHosts.add(host);
-		host = new Host (2, new RamProvisionerSimple (ram), new BwProvisionerSimple (anchoBanda), almacenamiento, listaCPUs, new VmSchedulerTimeShared (listaCPUs));
-		listaHosts.add(host);
 		
 		// ---------------------------------------------------------------------------------
 		
@@ -145,11 +152,11 @@ public class CloudSimEjercicio1 {
 		String arquitectura = "x86";
 		String so = "Linux";
 		String vmm = "Xen";
-		double zonaHoraria = 1.0;
-		double costePorSeg = 0.2;
-		double costePorMem = 0.2;
-		double costePorAlm = 0.2;
-		double costePorBw = 0.2;
+		double zonaHoraria = 4.0;
+		double costePorSeg = 0.01;
+		double costePorMem = 0.01;
+		double costePorAlm = 0.003;
+		double costePorBw = 0.005;
 		DatacenterCharacteristics caracteristicas = new DatacenterCharacteristics (arquitectura, so, vmm, listaHosts, zonaHoraria, costePorSeg, costePorMem, costePorAlm, costePorBw);
 		
 		// constructor centro de datos
