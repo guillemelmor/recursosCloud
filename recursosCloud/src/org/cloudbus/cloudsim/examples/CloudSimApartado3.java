@@ -7,6 +7,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 import org.cloudbus.cloudsim.Cloudlet;
+import org.cloudbus.cloudsim.CloudletSchedulerSpaceShared;
 import org.cloudbus.cloudsim.CloudletSchedulerTimeShared;
 import org.cloudbus.cloudsim.Datacenter;
 import org.cloudbus.cloudsim.DatacenterBroker;
@@ -31,7 +32,7 @@ public class CloudSimApartado3 {
 	
 	public static void main (String [] args){
 		try{
-			int numUsuarios = 1;
+			int numUsuarios = 10;
 			Calendar calendar = Calendar.getInstance();
 			boolean trace_flag = false;
 			CloudSim.init (numUsuarios, calendar, trace_flag);
@@ -39,68 +40,72 @@ public class CloudSimApartado3 {
 			// datacenter
 			Datacenter datacenter = createDatacenter("Datacenter");	
 			
-			// broker
-			DatacenterBroker broker = new DatacenterBroker("Broker");
-			int uid = broker.getId();
-		
-			// --------------------------------------------------------------------------
+			// lista de brokers
+			LinkedList <DatacenterBroker> lista_brokers = new LinkedList <DatacenterBroker> ();
 			
-			// cloudlet
-			Cloudlet cloudlet = null;
-			List<Cloudlet> listaCloudlets = new ArrayList<Cloudlet> ();
+			for (int j = 0; j < numUsuarios; j++){
+				// broker
+				DatacenterBroker broker = new DatacenterBroker("Broker_" + j);
+				int uid = broker.getId();
 			
-			// caracteristicas del cloudlet
-			UtilizationModel utilizationModel = new UtilizationModelFull ();
-			int numCPUsCloudlet = 1;
+				// --------------------------------------------------------------------------
+				
+				// cloudlet
+				Cloudlet cloudlet = null;
+				List<Cloudlet> listaCloudlets = new ArrayList<Cloudlet> ();
+				
+				// caracteristicas del cloudlet
+				UtilizationModel utilizationModel = new UtilizationModelFull ();
+				int numCPUsCloudlet = 1;
+				
+				// constructor cloudlet
+				for (int i = 0; i < 15; i++){
+					cloudlet = new Cloudlet (i, 45000, numCPUsCloudlet, 1000000, 1500000, utilizationModel, utilizationModel, utilizationModel);
+					cloudlet.setUserId (uid);
+					listaCloudlets.add(cloudlet);
+				}
+				
+				// -------------------------------------------------------------------------
+				
+				// maquina virtual
+				Vm vm = null;
+				List<Vm> listaVMs = new ArrayList<Vm> ();
+				
+				// caracteristicas de la maquina virtual
+				int mips = 250;
+				int numCPUsVm = 2;
+				int ram = 4096;
+				long anchoBanda = 1000;
+				long almacenamiento = 20000;
+				String vmm = "Xen";
+				
+				// constructor maquina virtual
+				vm = new Vm (0, uid, mips, numCPUsVm, ram, anchoBanda, almacenamiento, vmm, new CloudletSchedulerSpaceShared ());
+				listaVMs.add(vm);
+				vm = new Vm (1, uid, mips, numCPUsVm, ram, anchoBanda, almacenamiento, vmm, new CloudletSchedulerSpaceShared ());
+				listaVMs.add(vm);
+				vm = new Vm (2, uid, mips, numCPUsVm, ram, anchoBanda, almacenamiento, vmm, new CloudletSchedulerSpaceShared ());
+				listaVMs.add(vm);
 			
-			// constructor cloudlet
-			cloudlet = new Cloudlet (0, 20000, numCPUsCloudlet, 1000000, 1500000, utilizationModel, utilizationModel, utilizationModel);
-			cloudlet.setUserId (uid);
-			listaCloudlets.add(cloudlet);
-			cloudlet = new Cloudlet (1, 35000, numCPUsCloudlet, 2000000, 2000000, utilizationModel, utilizationModel, utilizationModel);
-			cloudlet.setUserId (uid);
-			listaCloudlets.add(cloudlet);
-			cloudlet = new Cloudlet (2, 70000, numCPUsCloudlet, 3000000, 4000000, utilizationModel, utilizationModel, utilizationModel);
-			cloudlet.setUserId (uid);
-			listaCloudlets.add(cloudlet);
-			cloudlet = new Cloudlet (3, 100000, numCPUsCloudlet, 3000000, 4000000, utilizationModel, utilizationModel, utilizationModel);
-			cloudlet.setUserId (uid);
-			listaCloudlets.add(cloudlet);
-			
-			// -------------------------------------------------------------------------
-			
-			// maquina virtual
-			Vm vm = null;
-			List<Vm> listaVMs = new ArrayList<Vm> ();
-			
-			// caracteristicas de la maquina virtual
-			int mips = 250;
-			int numCPUsVm = 1;
-			int ram = 1024;
-			long anchoBanda = 100;
-			long almacenamiento = 4000;
-			String vmm = "Xen";
-			
-			// constructor maquina virtual
-			vm = new Vm (0, uid, mips, numCPUsVm, ram, anchoBanda, almacenamiento, vmm, new CloudletSchedulerTimeShared ());
-			listaVMs.add(vm);
-			vm = new Vm (1, uid, mips, numCPUsVm, ram, anchoBanda, almacenamiento, vmm, new CloudletSchedulerTimeShared ());
-			listaVMs.add(vm);
-			vm = new Vm (2, uid, mips, numCPUsVm, ram, anchoBanda, almacenamiento, vmm, new CloudletSchedulerTimeShared ());
-			listaVMs.add(vm);
-		
-			// --------------------------------------------------------------------------
-					
-			broker.submitVmList (listaVMs);
-			broker.submitCloudletList (listaCloudlets);
+				// --------------------------------------------------------------------------
+						
+				broker.submitVmList (listaVMs);
+				broker.submitCloudletList (listaCloudlets);
+				lista_brokers.add(broker);
+			}
 			
 			// --------------------------------------------------------------------------
 
 			CloudSim.startSimulation ();
 			CloudSim.stopSimulation();
-			
-			List<Cloudlet> newList = broker.getCloudletReceivedList ();
-			printCloudletList(newList);			
+			int id_user = 0;
+			for(DatacenterBroker broker : lista_brokers){
+				System.out.println("\n------ user_" + id_user + " ------");
+				List<Cloudlet> newList = broker.getCloudletReceivedList ();
+				printCloudletList(newList);			
+				id_user++;
+			}
+				
 		}catch (Exception e){}
 	}
 	

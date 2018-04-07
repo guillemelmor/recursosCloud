@@ -58,13 +58,13 @@ public class CloudSimApartado1 {
 			cloudlet = new Cloudlet (0, 20000, numCPUsCloudlet, 1000000, 1500000, utilizationModel, utilizationModel, utilizationModel);
 			cloudlet.setUserId (uid);
 			listaCloudlets.add(cloudlet);
-			cloudlet = new Cloudlet (1, 35000, numCPUsCloudlet, 2000000, 2000000, utilizationModel, utilizationModel, utilizationModel);
+			cloudlet = new Cloudlet (1, 20000, numCPUsCloudlet, 1000000, 1500000, utilizationModel, utilizationModel, utilizationModel);
 			cloudlet.setUserId (uid);
 			listaCloudlets.add(cloudlet);
-			cloudlet = new Cloudlet (2, 70000, numCPUsCloudlet, 3000000, 4000000, utilizationModel, utilizationModel, utilizationModel);
+			cloudlet = new Cloudlet (2, 20000, numCPUsCloudlet, 1000000, 1500000, utilizationModel, utilizationModel, utilizationModel);
 			cloudlet.setUserId (uid);
 			listaCloudlets.add(cloudlet);
-			cloudlet = new Cloudlet (3, 100000, numCPUsCloudlet, 3000000, 4000000, utilizationModel, utilizationModel, utilizationModel);
+			cloudlet = new Cloudlet (3, 20000, numCPUsCloudlet, 1000000, 1500000, utilizationModel, utilizationModel, utilizationModel);
 			cloudlet.setUserId (uid);
 			listaCloudlets.add(cloudlet);
 			
