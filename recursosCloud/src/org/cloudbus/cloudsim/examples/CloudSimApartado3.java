@@ -33,11 +33,8 @@ public class CloudSimApartado3 {
 	private static int numcpus = 0;
 	public static void main (String [] args){
 		try{
-<<<<<<< HEAD
-			int numUsuarios = 1;
-=======
+
 			int numUsuarios = 4;
->>>>>>> branch 'master' of https://github.com/guillemelmor/recursosCloud.git
 			Calendar calendar = Calendar.getInstance();
 			boolean trace_flag = false;
 			CloudSim.init (numUsuarios, calendar, trace_flag);
@@ -79,10 +76,9 @@ public class CloudSimApartado3 {
 				// caracteristicas de la maquina virtual
 				int mips = 1200;
 				int numCPUsVm = 1;
-<<<<<<< HEAD
-=======
+
 				numcpus += 2;
->>>>>>> branch 'master' of https://github.com/guillemelmor/recursosCloud.git
+
 				int ram = 4096;
 				long anchoBanda = 1000;
 				long almacenamiento = 20000;
