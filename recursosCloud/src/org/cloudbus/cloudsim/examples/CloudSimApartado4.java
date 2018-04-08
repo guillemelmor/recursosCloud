@@ -8,7 +8,6 @@ import java.util.List;
 
 import org.cloudbus.cloudsim.Cloudlet;
 import org.cloudbus.cloudsim.CloudletSchedulerSpaceShared;
-import org.cloudbus.cloudsim.CloudletSchedulerTimeShared;
 import org.cloudbus.cloudsim.Datacenter;
 import org.cloudbus.cloudsim.DatacenterBroker;
 import org.cloudbus.cloudsim.DatacenterCharacteristics;
@@ -20,13 +19,14 @@ import org.cloudbus.cloudsim.UtilizationModel;
 import org.cloudbus.cloudsim.UtilizationModelFull;
 import org.cloudbus.cloudsim.Vm;
 import org.cloudbus.cloudsim.VmAllocationPolicySimple;
-import org.cloudbus.cloudsim.VmSchedulerSpaceShared;
+import org.cloudbus.cloudsim.VmSchedulerTimeShared;
 import org.cloudbus.cloudsim.core.CloudSim;
 import org.cloudbus.cloudsim.provisioners.BwProvisionerSimple;
 import org.cloudbus.cloudsim.provisioners.PeProvisionerSimple;
 import org.cloudbus.cloudsim.provisioners.RamProvisionerSimple;
 
-public class CloudSimApartado3 {
+public class CloudSimApartado4 {
+
 	private static List<Vm> vmlist;
 	private static List<Cloudlet> cloudletList;
 	
@@ -49,7 +49,7 @@ public class CloudSimApartado3 {
 				int uid = broker.getId();
 			
 				// --------------------------------------------------------------------------
-				
+				/*
 				// cloudlet
 				Cloudlet cloudlet = null;
 				List<Cloudlet> listaCloudlets = new ArrayList<Cloudlet> ();
@@ -64,7 +64,7 @@ public class CloudSimApartado3 {
 					cloudlet.setUserId (uid);
 					listaCloudlets.add(cloudlet);
 				}
-				
+				*/
 				// -------------------------------------------------------------------------
 				
 				// maquina virtual
@@ -72,11 +72,11 @@ public class CloudSimApartado3 {
 				List<Vm> listaVMs = new ArrayList<Vm> ();
 				
 				// caracteristicas de la maquina virtual
-				int mips = 1200;
+				int mips = 400;
 				int numCPUsVm = 1;
-				int ram = 4096;
+				int ram = 2048;
 				long anchoBanda = 1000;
-				long almacenamiento = 20000;
+				long almacenamiento = 40000;
 				String vmm = "Xen";
 				
 				// constructor maquina virtual
@@ -86,11 +86,16 @@ public class CloudSimApartado3 {
 				listaVMs.add(vm);
 				vm = new Vm (2, uid, mips, numCPUsVm, ram, anchoBanda, almacenamiento, vmm, new CloudletSchedulerSpaceShared ());
 				listaVMs.add(vm);
-			
+				vm = new Vm (3, uid, mips, numCPUsVm, ram, anchoBanda, almacenamiento, vmm, new CloudletSchedulerSpaceShared ());
+				listaVMs.add(vm);
+				vm = new Vm (4, uid, mips, numCPUsVm, ram, anchoBanda, almacenamiento, vmm, new CloudletSchedulerSpaceShared ());
+				listaVMs.add(vm);
+				vm = new Vm (5, uid, mips, numCPUsVm, ram, anchoBanda, almacenamiento, vmm, new CloudletSchedulerSpaceShared ());
+				listaVMs.add(vm);
 				// --------------------------------------------------------------------------
 						
 				broker.submitVmList (listaVMs);
-				broker.submitCloudletList (listaCloudlets);
+				//broker.submitCloudletList (listaCloudlets);
 				lista_brokers.add(broker);
 			}
 			
@@ -110,71 +115,54 @@ public class CloudSimApartado3 {
 	}
 	
 	// Centro de Datos
-	private static Datacenter createDatacenter (String name){	
-		// ---------------------------------------------------------------------------------
-		
-		// procesador
-		Pe cpu = null;
-		List<Pe> listaCPUs = new ArrayList <Pe> ();
-		
-		// caracteristicas del procesador
-		int mips = 1200;
-		
-		// constructor procesador
-		cpu = new Pe (0, new PeProvisionerSimple (mips));
-		listaCPUs.add(cpu);
-		cpu = new Pe (1, new PeProvisionerSimple (mips));
-		listaCPUs.add(cpu);
-		cpu = new Pe (2, new PeProvisionerSimple (mips));
-		listaCPUs.add(cpu);
-		cpu = new Pe (3, new PeProvisionerSimple (mips));
-		listaCPUs.add(cpu);
-		
-		// ---------------------------------------------------------------------------------
-		
-		// host
-		Host host = null;
-		List<Host> listaHosts = new ArrayList<Host> ();
-		
-		// características del host
-		int ram = 24576; //MB
-		long anchoBanda = 10000; // Gbps
-		long almacenamiento = 2000000; //MB
-		
-		// constructor host
-		//host = new Host (0, new RamProvisionerSimple (ram), new BwProvisionerSimple (anchoBanda), almacenamiento, listaCPUs, new VmSchedulerTimeShared (listaCPUs));
-		host = new Host (0, new RamProvisionerSimple (ram), new BwProvisionerSimple (anchoBanda), almacenamiento, listaCPUs, new VmSchedulerSpaceShared (listaCPUs));
-		listaHosts.add(host);		
-		host = new Host (1, new RamProvisionerSimple (ram), new BwProvisionerSimple (anchoBanda), almacenamiento, listaCPUs, new VmSchedulerSpaceShared (listaCPUs));
-		listaHosts.add(host);
-		host = new Host (2, new RamProvisionerSimple (ram), new BwProvisionerSimple (anchoBanda), almacenamiento, listaCPUs, new VmSchedulerSpaceShared (listaCPUs));
-		listaHosts.add(host);
-		host = new Host (3, new RamProvisionerSimple (ram), new BwProvisionerSimple (anchoBanda), almacenamiento, listaCPUs, new VmSchedulerSpaceShared (listaCPUs));
-		listaHosts.add(host);
-		host = new Host (4, new RamProvisionerSimple (ram), new BwProvisionerSimple (anchoBanda), almacenamiento, listaCPUs, new VmSchedulerSpaceShared (listaCPUs));
-		listaHosts.add(host);
-		
-		// ---------------------------------------------------------------------------------
-		
-		// centro de datos
-		Datacenter datacenter = null;
-		
-		// características del centro de datos
-		String nombre = "Centro_de_Datos";
-		String arquitectura = "x86";
-		String so = "Linux";
-		String vmm = "Xen";
-		double zonaHoraria = 2.0;
-		double costePorSeg = 0.01;
-		double costePorMem = 0.005;
-		double costePorAlm = 0.003;
-		double costePorBw = 0.005;
-		DatacenterCharacteristics caracteristicas = new DatacenterCharacteristics (arquitectura, so, vmm, listaHosts, zonaHoraria, costePorSeg, costePorMem, costePorAlm, costePorBw);
-		
-		// constructor centro de datos
-		try{
-			datacenter = new Datacenter (nombre, caracteristicas, new VmAllocationPolicySimple(listaHosts), new LinkedList <Storage> (), 0);
-		}catch (Exception e) {}
+	private static Datacenter createDatacenter (String name){		
+		 final int NUMERO_HOSTS = 3; // Queremos 3 hosts
+		  int mips = 1200;
+		  int ram = 16384; // 16 GB
+		  long almacenamiento = 1000000; // 1 TB
+		  long anchoBanda = 10000; // 10 Gbps
+		  List<Pe>[] listaCPUs = new List[NUMERO_HOSTS];
+		  Host[] host = new Host[NUMERO_HOSTS];
+		  List<Host> listaHosts = new ArrayList<Host>();
+		 
+		  Datacenter datacenter = null;
+		  
+		  for (int i=0;i<NUMERO_HOSTS;i++){
+		  listaCPUs[i] = new ArrayList<Pe>();
+		  listaCPUs[i].add(new Pe(0, new PeProvisionerSimple(mips)));
+		  if (i==1){ // El host con id=1 contará con 4 procesadores
+		  listaCPUs[i].add(new Pe(1, new PeProvisionerSimple(mips)));
+		  listaCPUs[i].add(new Pe(2, new PeProvisionerSimple(mips)));
+		  listaCPUs[i].add(new Pe(3, new PeProvisionerSimple(mips)));
+		  }
+		  host[i] = new Host(
+		  i, new RamProvisionerSimple(ram),
+		  new BwProvisionerSimple(anchoBanda), almacenamiento,
+		  listaCPUs[i], new VmSchedulerTimeShared(listaCPUs[i]));
+		  listaHosts.add(host[i]);
+		  }
+		 
+		  String arquitectura = "x86";
+		  String so = "Linux";
+		  String vmm = "Xen";
+		  String nombre = "Datacenter_0";
+		  double zonaHoraria = 3.0;
+		  double costePorSeg = 0.007;
+		  double costePorMem = 0.005;
+		  double costePorAlm = 0.003;
+		 double costePorBw = 0.002;
+		 DatacenterCharacteristics caracteristicas =
+		 new DatacenterCharacteristics(arquitectura, so, vmm, listaHosts,
+		 zonaHoraria, costePorSeg, costePorMem, costePorAlm,
+		 costePorBw);
+		 Datacenter centroDeDatos = null;
+		 try {
+		 datacenter = new Datacenter(nombre, caracteristicas,
+		 new VmAllocationPolicySimple(listaHosts),
+		 new LinkedList<Storage>(), 0);
+		 } catch (Exception e) {
+		 e.printStackTrace();
+		 }
 		return datacenter;
 	}
 		
@@ -208,3 +196,4 @@ public class CloudSimApartado3 {
 		}
 	}
 }
+

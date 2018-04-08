@@ -69,7 +69,7 @@ public class CloudSimApartado2 {
 			List<Vm> listaVMs = new ArrayList<Vm> ();
 			
 			// caracteristicas de la maquina virtual
-			int mips = 200;
+			int mips = 600;
 			int numCPUsVm = 2;
 			int ram = 1024;
 			long anchoBanda = 100;
@@ -77,14 +77,14 @@ public class CloudSimApartado2 {
 			String vmm = "Xen";
 			
 			// constructor maquina virtual
-			//vm = new Vm (0, uid, mips, numCPUsVm, ram, anchoBanda, almacenamiento, vmm, new CloudletSchedulerSpaceShared ());
-			//listaVMs.add(vm);
-			//vm = new Vm (1, uid, mips, numCPUsVm, ram, anchoBanda, almacenamiento, vmm, new CloudletSchedulerSpaceShared ());
-			//listaVMs.add(vm);
-			vm = new Vm (0, uid, mips, numCPUsVm, ram, anchoBanda, almacenamiento, vmm, new CloudletSchedulerTimeShared ());
+			vm = new Vm (0, uid, mips, numCPUsVm, ram, anchoBanda, almacenamiento, vmm, new CloudletSchedulerSpaceShared ());
 			listaVMs.add(vm);
-			vm = new Vm (1, uid, mips, numCPUsVm, ram, anchoBanda, almacenamiento, vmm, new CloudletSchedulerTimeShared ());
+			vm = new Vm (1, uid, mips, numCPUsVm, ram, anchoBanda, almacenamiento, vmm, new CloudletSchedulerSpaceShared ());
 			listaVMs.add(vm);
+			//vm = new Vm (0, uid, mips, numCPUsVm, ram, anchoBanda, almacenamiento, vmm, new CloudletSchedulerTimeShared ());
+			//listaVMs.add(vm);
+			//vm = new Vm (1, uid, mips, numCPUsVm, ram, anchoBanda, almacenamiento, vmm, new CloudletSchedulerTimeShared ());
+			//listaVMs.add(vm);
 			//vm = new Vm (2, uid, mips, numCPUsVm, ram, anchoBanda, almacenamiento, vmm, new CloudletSchedulerSpaceShared ());
 			//listaVMs.add(vm);
 			//vm = new Vm (3, uid, mips, numCPUsVm, ram, anchoBanda, almacenamiento, vmm, new CloudletSchedulerSpaceShared ());
