@@ -69,8 +69,13 @@ public class CloudSimApartado2 {
 			List<Vm> listaVMs = new ArrayList<Vm> ();
 			
 			// caracteristicas de la maquina virtual
+<<<<<<< HEAD
 			int mips = 600;
 			int numCPUsVm = 2;
+=======
+			int mips = 400;
+			int numCPUsVm = 1;
+>>>>>>> branch 'master' of https://github.com/guillemelmor/recursosCloud.git
 			int ram = 1024;
 			long anchoBanda = 100;
 			long almacenamiento = 6000;

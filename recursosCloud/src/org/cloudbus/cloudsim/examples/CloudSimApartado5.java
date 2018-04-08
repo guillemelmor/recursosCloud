@@ -21,23 +21,20 @@ import org.cloudbus.cloudsim.UtilizationModelFull;
 import org.cloudbus.cloudsim.Vm;
 import org.cloudbus.cloudsim.VmAllocationPolicySimple;
 import org.cloudbus.cloudsim.VmSchedulerSpaceShared;
+import org.cloudbus.cloudsim.VmSchedulerTimeShared;
 import org.cloudbus.cloudsim.core.CloudSim;
 import org.cloudbus.cloudsim.provisioners.BwProvisionerSimple;
 import org.cloudbus.cloudsim.provisioners.PeProvisionerSimple;
 import org.cloudbus.cloudsim.provisioners.RamProvisionerSimple;
 
-public class CloudSimApartado3 {
+public class CloudSimApartado5 {
 	private static List<Vm> vmlist;
 	private static List<Cloudlet> cloudletList;
 	private static int numCPUS = 0;
 	private static int numcpus = 0;
 	public static void main (String [] args){
 		try{
-<<<<<<< HEAD
-			int numUsuarios = 1;
-=======
-			int numUsuarios = 4;
->>>>>>> branch 'master' of https://github.com/guillemelmor/recursosCloud.git
+			int numUsuarios = 10;
 			Calendar calendar = Calendar.getInstance();
 			boolean trace_flag = false;
 			CloudSim.init (numUsuarios, calendar, trace_flag);
@@ -79,10 +76,6 @@ public class CloudSimApartado3 {
 				// caracteristicas de la maquina virtual
 				int mips = 1200;
 				int numCPUsVm = 1;
-<<<<<<< HEAD
-=======
-				numcpus += 2;
->>>>>>> branch 'master' of https://github.com/guillemelmor/recursosCloud.git
 				int ram = 4096;
 				long anchoBanda = 1000;
 				long almacenamiento = 20000;
@@ -108,8 +101,6 @@ public class CloudSimApartado3 {
 			CloudSim.startSimulation ();
 			CloudSim.stopSimulation();
 			int id_user = 0;
-			System.out.println("total de CPUs: " + numCPUS);
-			System.out.println("total de cpus: " + numcpus);
 			for(DatacenterBroker broker : lista_brokers){
 				System.out.println("\n------ user_" + id_user + " ------");
 				List<Cloudlet> newList = broker.getCloudletReceivedList ();
@@ -187,7 +178,9 @@ public class CloudSimApartado3 {
 		
 		// constructor centro de datos
 		try{
-			datacenter = new Datacenter (nombre, caracteristicas, new VmAllocationPolicySimple(listaHosts), new LinkedList <Storage> (), 0);
+			datacenter = new Datacenter (nombre, caracteristicas, new CloudSimApartado5Politica(listaHosts), new LinkedList <Storage> (), 0);
+			//datacenter = new Datacenter (nombre, caracteristicas, new VmAllocationPolicySimple(listaHosts), new LinkedList <Storage> (), 0);
+
 		}catch (Exception e) {}
 		return datacenter;
 	}
