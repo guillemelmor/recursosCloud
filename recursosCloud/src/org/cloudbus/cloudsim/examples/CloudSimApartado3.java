@@ -33,7 +33,7 @@ public class CloudSimApartado3 {
 	private static int numcpus = 0;
 	public static void main (String [] args){
 		try{
-			int numUsuarios = 10;
+			int numUsuarios = 4;
 			Calendar calendar = Calendar.getInstance();
 			boolean trace_flag = false;
 			CloudSim.init (numUsuarios, calendar, trace_flag);
