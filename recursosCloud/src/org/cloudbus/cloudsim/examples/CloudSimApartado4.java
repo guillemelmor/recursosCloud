@@ -92,6 +92,7 @@ public class CloudSimApartado4 {
 				listaVMs.add(vm);
 				vm = new Vm (5, uid, mips, numCPUsVm, ram, anchoBanda, almacenamiento, vmm, new CloudletSchedulerSpaceShared ());
 				listaVMs.add(vm);
+			
 				// --------------------------------------------------------------------------
 						
 				broker.submitVmList (listaVMs);
@@ -134,6 +135,7 @@ public class CloudSimApartado4 {
 		  listaCPUs[i].add(new Pe(1, new PeProvisionerSimple(mips)));
 		  listaCPUs[i].add(new Pe(2, new PeProvisionerSimple(mips)));
 		  listaCPUs[i].add(new Pe(3, new PeProvisionerSimple(mips)));
+
 		  }
 		  host[i] = new Host(
 		  i, new RamProvisionerSimple(ram),
