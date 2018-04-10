@@ -132,10 +132,9 @@ public class CloudSimApartado4 {
 		  listaCPUs[i] = new ArrayList<Pe>();
 		  listaCPUs[i].add(new Pe(0, new PeProvisionerSimple(mips)));
 		  if (i==1){ // El host con id=1 contará con 4 procesadores
-		  listaCPUs[i].add(new Pe(1, new PeProvisionerSimple(mips)));
-		  listaCPUs[i].add(new Pe(2, new PeProvisionerSimple(mips)));
-		  listaCPUs[i].add(new Pe(3, new PeProvisionerSimple(mips)));
-
+			  listaCPUs[i].add(new Pe(1, new PeProvisionerSimple(mips)));
+			  listaCPUs[i].add(new Pe(2, new PeProvisionerSimple(mips)));
+			  listaCPUs[i].add(new Pe(3, new PeProvisionerSimple(mips)));
 		  }
 		  host[i] = new Host(
 		  i, new RamProvisionerSimple(ram),
