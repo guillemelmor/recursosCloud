@@ -46,10 +46,10 @@ public class CloudSimApartado6 {
 			// lista de brokers
 			LinkedList <DatacenterBroker> lista_brokers = new LinkedList <DatacenterBroker> ();
 			
-			// --- A
-			for (int j = 0; j < numUsuarios_A; j++){
+			// --- C
+			for (int j = 0; j < numUsuarios_C; j++){
 				// broker
-				DatacenterBroker broker = new DatacenterBroker("Broker_A_" + j);
+				DatacenterBroker broker = new DatacenterBroker("Broker_C_" + j);
 				int uid = broker.getId();
 			
 				// --------------------------------------------------------------------------
@@ -63,7 +63,7 @@ public class CloudSimApartado6 {
 				int numCPUsCloudlet = 1;
 				
 				// constructor cloudlet
-				for (int i = 0; i < 8; i++){
+				for (int i = 0; i < 24; i++){
 					cloudlet = new Cloudlet (i, 20000, numCPUsCloudlet, 1000000, 1500000, utilizationModel, utilizationModel, utilizationModel);
 					cloudlet.setUserId (uid);
 					listaCloudlets.add(cloudlet);
@@ -76,15 +76,15 @@ public class CloudSimApartado6 {
 				List<Vm> listaVMs = new ArrayList<Vm> ();
 				
 				// caracteristicas de la maquina virtual
-				int mips = 2400;
+				int mips = 1800;
 				int numCPUsVm = 1;
-				int ram = 3072;
+				int ram = 2048;
 				long anchoBanda = 1000;
-				long almacenamiento = 120000;
+				long almacenamiento = 60000;
 				String vmm = "Xen";
 				
 				// constructor maquina virtual
-				for (int k = 0; k < 8; k++){
+				for (int k = 0; k < 24; k++){
 					vm = new Vm (k, uid, mips, numCPUsVm, ram, anchoBanda, almacenamiento, vmm, new CloudletSchedulerSpaceShared ());
 					listaVMs.add(vm);
 				}
@@ -95,6 +95,8 @@ public class CloudSimApartado6 {
 				broker.submitCloudletList (listaCloudlets);
 				lista_brokers.add(broker);
 			}
+			
+			
 			
 			// --- B
 			for (int j = 0; j < numUsuarios_B; j++){
@@ -146,10 +148,10 @@ public class CloudSimApartado6 {
 				lista_brokers.add(broker);
 			}
 			
-			// --- C
-			for (int j = 0; j < numUsuarios_C; j++){
+			// --- A
+			for (int j = 0; j < numUsuarios_A; j++){
 				// broker
-				DatacenterBroker broker = new DatacenterBroker("Broker_C_" + j);
+				DatacenterBroker broker = new DatacenterBroker("Broker_A_" + j);
 				int uid = broker.getId();
 			
 				// --------------------------------------------------------------------------
@@ -163,7 +165,7 @@ public class CloudSimApartado6 {
 				int numCPUsCloudlet = 1;
 				
 				// constructor cloudlet
-				for (int i = 0; i < 24; i++){
+				for (int i = 0; i < 8; i++){
 					cloudlet = new Cloudlet (i, 20000, numCPUsCloudlet, 1000000, 1500000, utilizationModel, utilizationModel, utilizationModel);
 					cloudlet.setUserId (uid);
 					listaCloudlets.add(cloudlet);
@@ -176,15 +178,15 @@ public class CloudSimApartado6 {
 				List<Vm> listaVMs = new ArrayList<Vm> ();
 				
 				// caracteristicas de la maquina virtual
-				int mips = 1800;
+				int mips = 2400;
 				int numCPUsVm = 1;
-				int ram = 2048;
+				int ram = 3072;
 				long anchoBanda = 1000;
-				long almacenamiento = 60000;
+				long almacenamiento = 120000;
 				String vmm = "Xen";
 				
 				// constructor maquina virtual
-				for (int k = 0; k < 24; k++){
+				for (int k = 0; k < 8; k++){
 					vm = new Vm (k, uid, mips, numCPUsVm, ram, anchoBanda, almacenamiento, vmm, new CloudletSchedulerSpaceShared ());
 					listaVMs.add(vm);
 				}
@@ -295,8 +297,8 @@ public class CloudSimApartado6 {
 		
 		// constructor centro de datos
 		try{
-			//datacenter = new Datacenter (nombre, caracteristicas, new CloudSimApartado5Politica(listaHosts), new LinkedList <Storage> (), 0);
-			datacenter = new Datacenter (nombre, caracteristicas, new VmAllocationPolicySimple(listaHosts), new LinkedList <Storage> (), 0);
+			datacenter = new Datacenter (nombre, caracteristicas, new CloudSimApartado5Politica(listaHosts), new LinkedList <Storage> (), 0);
+			//datacenter = new Datacenter (nombre, caracteristicas, new VmAllocationPolicySimple(listaHosts), new LinkedList <Storage> (), 0);
 
 		}catch (Exception e) {}
 		return datacenter;
