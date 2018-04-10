@@ -1,4 +1,4 @@
-package org.cloudbus.cloudsim.examples;
+package Practica2;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
@@ -25,7 +25,7 @@ import org.cloudbus.cloudsim.provisioners.BwProvisionerSimple;
 import org.cloudbus.cloudsim.provisioners.PeProvisionerSimple;
 import org.cloudbus.cloudsim.provisioners.RamProvisionerSimple;
 
-public class CloudSimApartado4 {
+public class ap4 {
 
 	private static List<Vm> vmlist;
 	private static List<Cloudlet> cloudletList;

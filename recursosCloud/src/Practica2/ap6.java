@@ -1,4 +1,4 @@
-package org.cloudbus.cloudsim.examples;
+package Practica2;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
@@ -21,11 +21,12 @@ import org.cloudbus.cloudsim.Vm;
 import org.cloudbus.cloudsim.VmAllocationPolicySimple;
 import org.cloudbus.cloudsim.VmSchedulerSpaceShared;
 import org.cloudbus.cloudsim.core.CloudSim;
+import org.cloudbus.cloudsim.examples.CloudSimApartado5Politica;
 import org.cloudbus.cloudsim.provisioners.BwProvisionerSimple;
 import org.cloudbus.cloudsim.provisioners.PeProvisionerSimple;
 import org.cloudbus.cloudsim.provisioners.RamProvisionerSimple;
 
-public class CloudSimApartado6 {
+public class ap6 {
 	private static List<Vm> vmlist;
 	private static List<Cloudlet> cloudletList;
 	private static int numCPUS = 0;
@@ -40,7 +41,7 @@ public class CloudSimApartado6 {
 			boolean trace_flag = false;
 			CloudSim.init (numUsuarios, calendar, trace_flag);
 			
-			// datacenter
+			//datacenter
 			Datacenter datacenter = createDatacenter("Datacenter");	
 			
 			// lista de brokers
@@ -295,7 +296,7 @@ public class CloudSimApartado6 {
 		double costePorBw = 0.01;
 		DatacenterCharacteristics caracteristicas = new DatacenterCharacteristics (arquitectura, so, vmm, listaHosts, zonaHoraria, costePorSeg, costePorMem, costePorAlm, costePorBw);
 		
-		// constructor centro de datos
+		//constructor centro de datos
 		try{
 			datacenter = new Datacenter (nombre, caracteristicas, new CloudSimApartado5Politica(listaHosts), new LinkedList <Storage> (), 0);
 			//datacenter = new Datacenter (nombre, caracteristicas, new VmAllocationPolicySimple(listaHosts), new LinkedList <Storage> (), 0);
