@@ -70,8 +70,8 @@ public class CloudSimApartado2 {
 			
 			// caracteristicas de la maquina virtual
 
-			int mips = 400;
-			int numCPUsVm = 1;
+			int mips = 200;
+			int numCPUsVm = 2;
 
 			int ram = 1024;
 			long anchoBanda = 100;

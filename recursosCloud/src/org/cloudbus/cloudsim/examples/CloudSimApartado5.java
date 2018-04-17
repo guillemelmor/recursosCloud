@@ -74,8 +74,8 @@ public class CloudSimApartado5 {
 				List<Vm> listaVMs = new ArrayList<Vm> ();
 				
 				// caracteristicas de la maquina virtual
-				int mips = 1200;
-				int numCPUsVm = 1;
+				int mips = 600;
+				int numCPUsVm = 2;
 				int ram = 4096;
 				long anchoBanda = 1000;
 				long almacenamiento = 20000;
